@@ -1,8 +1,21 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Microsoft.EntityFrameworkCore;
+using ReelRemyTest.Data;
+
+var builder = WebApplication.CreateBuilder(args);
+
+
+
+
 
 // Add services to the container.
 
+
+builder.Services.AddDbContext<MovieDbContext>(
+    dbContextOptions => dbContextOptions.UseSqlServer(
+        builder.Configuration["ConnectionStrings:MovieDBConnectionString"]));
+
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
